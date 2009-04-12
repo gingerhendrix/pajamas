@@ -1,0 +1,10 @@
+@milestone First spike - simple pj-task-new, next, list, done
+  @iteration @feature task-list - read TODO and print to console
+    @task @tdd Write Todo.read
+      @task @tdd Write Task.new
+    @task @tdd Write Todo.to_console
+      @task @tdd Write Task.to_console
+  @iteration task-next - read TODO and print next/current task with context
+  @iteration task-new - add a new task to TODO
+  @iteration task-done - mark a task as done and move the current task pointer
+@milestone Behaviour - add behaviour for @tdd

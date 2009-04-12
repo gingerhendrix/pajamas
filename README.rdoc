@@ -1,0 +1,7 @@
+= pajamas
+
+Description goes here.
+
+== Copyright
+
+Copyright (c) 2009 Gareth Andrew. See LICENSE for details.

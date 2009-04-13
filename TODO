@@ -19,7 +19,19 @@
       @task Update specs to explain failing behaviour +done
       @task Update code to pass specs +done
       @exec='cucumber features' Passing features +done
-  @iteration task-next - read TODO and print next/current task with context
-  @iteration task-new - add a new task to TODO
+  @iteration task-next - read TODO and print next/current task with context +done
+    @task Write a new feature +done
+    @task Write step definitions +done
+    @task Write code to make feature pass +done
+      @task TodoFile should have a tree of items +done
+        Create a separate task class +done
+        Give task class a parent and children +done
+        Give todoFile a list of roots +done
+      @task @tdd TodoFile should have a current Task +done
+      @task @tdd Commands::Task::Next should output the current task and context to console +done
+        Write current_to_console method in TodoFile +done
+      @task Write executable script +done
+      @exec='cucumber features' Passing features +done
   @iteration task-done - mark a task as done and move the current task pointer
+  @iteration task-new - add a new task to TODO
 @milestone Behaviour - add behaviour for @tdd

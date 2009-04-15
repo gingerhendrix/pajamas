@@ -4,6 +4,7 @@ module Pajamas
     attr_accessor :items
     attr_accessor :roots
     attr_accessor :current
+    attr_accessor :filename
   
     def initialize
       @items = []
@@ -45,11 +46,24 @@ module Pajamas
     end
     
     def self.read_file(filename)
-      read_string File.read(filename)
+      todo = self.read_string(File.read(filename))
+      todo.filename = filename
+      todo
     end
     
     def to_console
        @items.map(&:to_string).join("\n")
+    end
+    
+    def to_file
+      @items.map(&:to_string).join("\n")
+    end
+    
+    def save(filename=nil)
+      filename = @filename if !filename
+      raise StandardError.new "No filename supplied to save" if !filename
+      file = File.new(filename, "w")
+      file.write(self.to_file)
     end
     
     def current_to_console
@@ -61,7 +75,6 @@ module Pajamas
       end
       context.map(&:to_string).join("\n")
     end
-    
   
   end
 end

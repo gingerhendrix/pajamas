@@ -1,0 +1,8 @@
+Context 1
+  A Completed Task +done
+    A completed subtask +done
+  Context 2
+    A completed subtask +done
+    Task +done
+  Another Task
+Another Root Task

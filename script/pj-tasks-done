@@ -1,0 +1,7 @@
+#!/usr/bin/ruby
+
+$: << File.dirname(__FILE__) + "/../lib/"
+require "pajamas"
+
+task = Pajamas::Commands::Tasks::Done.new ARGV
+task.run

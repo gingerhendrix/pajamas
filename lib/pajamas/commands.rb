@@ -22,6 +22,16 @@ module Pajamas
           puts @todoFile.current_to_console
         end
       end
+      
+     class Done < Base
+        def run
+          @todoFile = TodoFile.read_file(@filename)
+          current = @todoFile.current
+          current.done!
+          @todoFile.save
+          puts current.to_string
+        end
+      end
     end
   end  
 

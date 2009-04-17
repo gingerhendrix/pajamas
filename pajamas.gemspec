@@ -2,12 +2,13 @@
 
 Gem::Specification.new do |s|
   s.name = %q{pajamas}
-  s.version = "0.1.0"
+  s.version = "0.1.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Gareth Andrew"]
-  s.date = %q{2009-04-15}
+  s.date = %q{2009-04-18}
   s.email = %q{gingerhendrix@hotmail.com}
+  s.executables = ["pj-tasks-list", "pj-tasks-list~", "pj-tasks-next", "pj-tasks-next~", "pj-tasks-done", "pj-tasks-done~"]
   s.extra_rdoc_files = [
     "LICENSE",
     "README.rdoc"
@@ -17,6 +18,9 @@ Gem::Specification.new do |s|
     "README.rdoc",
     "Rakefile",
     "VERSION.yml",
+    "bin/pj-tasks-done",
+    "bin/pj-tasks-list",
+    "bin/pj-tasks-next",
     "lib/pajamas.rb",
     "lib/pajamas/commands.rb",
     "lib/pajamas/task.rb",

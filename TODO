@@ -2,7 +2,7 @@
   @iteration @feature task-list - read TODO and print to console +done
     @task Write a new feature +done
     @task Write step definitions +done
-    @task Write code to make feature pass + done
+    @task Write code to make feature pass +done
       @task @tdd Write Todo.read +done
         Write failing test +done
         Write code to make test pass +done
@@ -40,9 +40,9 @@
       @tdd Task file should separate description from state +done
       @tdd Task should allow state to be modified +done
       @tdd Commands:Task::Done should load the TODO set the current task to done and save the todo file +done
-@patch Add executables to gem
-  Move script folder to bin folder
-  Up patchlevel
+@patch Add executables to gem +done
+  Move script folder to bin folder +done
+  Up patchlevel +done
   Release
 @milestone Behaviour - add behaviour for @tdd
   @iteration @feature add substeps 'Write failing test' and 'Write code to make test pass' to @tdd tasks

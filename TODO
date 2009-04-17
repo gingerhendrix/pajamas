@@ -40,4 +40,16 @@
       @tdd Task file should separate description from state +done
       @tdd Task should allow state to be modified +done
       @tdd Commands:Task::Done should load the TODO set the current task to done and save the todo file +done
+@patch Add executables to gem
+  Move script folder to bin folder
+  Up patchlevel
+  Release
 @milestone Behaviour - add behaviour for @tdd
+  @iteration @feature add substeps 'Write failing test' and 'Write code to make test pass' to @tdd tasks
+    @task Write feature definition - pj-tasks-next should 
+    @task Write step definitions
+    @taks Write code to make features pass
+  @iteration @feature add 'rake spec' to output for pj-tasks-next if @tdd or @tddstep
+  @iteration @feature add passing unit tests as a precondition for pj-tasks-done on tdd step
+@milestone Behaviour2 - add behaviour for story-driven-development
+@milestone Behaviour3 - add behaviour for releases and git

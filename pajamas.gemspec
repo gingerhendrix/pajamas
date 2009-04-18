@@ -8,7 +8,7 @@ Gem::Specification.new do |s|
   s.authors = ["Gareth Andrew"]
   s.date = %q{2009-04-18}
   s.email = %q{gingerhendrix@hotmail.com}
-  s.executables = ["pj-tasks-next", "pj-tasks-done", "pj-tasks-all"]
+  s.executables = ["pj-tasks-next", "pj-tasks-done", "pj-tasks-list"]
   s.extra_rdoc_files = [
     "LICENSE",
     "README.rdoc"

@@ -9,7 +9,7 @@ begin
     gem.email = "gingerhendrix@hotmail.com"
     gem.homepage = "http://github.com/gingerhendrix/pajamas"
     gem.authors = ["Gareth Andrew"]
-    gem.executables = ["pj-tasks-next", "pj-tasks-done", "pj-tasks-all"]
+    gem.executables = ["pj-tasks-next", "pj-tasks-done", "pj-tasks-list"]
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end
 rescue LoadError

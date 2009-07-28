@@ -1,55 +1,20 @@
 @milestone First spike - simple pj-task-next, list, done +done
   @iteration @feature task-list - read TODO and print to console +done
-    @task Write a new feature +done
-    @task Write step definitions +done
-    @task Write code to make feature pass +done
-      @task @tdd Write Todo.read +done
-        Write failing test +done
-        Write code to make test pass +done
-      @task @tdd Write Todo.to_console +done
-        Write failing test +done
-        Write code to make test pass +done
-      @task @tdd Write Commands::Task::list +done
-        Write failing test +done
-        Write code to make test pass +done
-      @task @tdd Write TodoFile.read_file +done
-        Write failing test +done
-        Write code to make test pass +done
-      @task Write executable script +done
-      @task Update specs to explain failing behaviour +done
-      @task Update code to pass specs +done
-      @exec='cucumber features' Passing features +done
   @iteration task-next - read TODO and print next/current task with context +done
-    @task Write a new feature +done
-    @task Write step definitions +done
-    @task Write code to make feature pass +done
-      @task TodoFile should have a tree of items +done
-        Create a separate task class +done
-        Give task class a parent and children +done
-        Give todoFile a list of roots +done
-      @task @tdd TodoFile should have a current Task +done
-      @task @tdd Commands::Task::Next should output the current task and context to console +done
-        Write current_to_console method in TodoFile +done
-      @task Write executable script +done
-      @exec='cucumber features' Passing features +done
   @iteration @feature task-done - mark a task as done and move the current task pointer +done
-    @task Write a new feature +done
-    @task Write step definitions +done
-    @task Write code to make feature pass +done
-      @tdd Todo file should have save behaviour +done
-      @tdd Task file should separate description from state +done
-      @tdd Task should allow state to be modified +done
-      @tdd Commands:Task::Done should load the TODO set the current task to done and save the todo file +done
 @patch Add executables to gem +done
-  Move script folder to bin folder +done
-  Up patchlevel +done
-  Release
-@milestone Behaviour - add behaviour for @tdd
-  @iteration @feature add substeps 'Write failing test' and 'Write code to make test pass' to @tdd tasks
-    @task Write feature definition - pj-tasks-next should 
-    @task Write step definitions
-    @taks Write code to make features pass
-  @iteration @feature add 'rake spec' to output for pj-tasks-next if @tdd or @tddstep
+@milestone Behaviour - add behaviour features using @tdd as an example
+  @iteration @feature add substeps - 'Write failing test' and 'Write code to make test pass' to @tdd tasks
+    @feature_scenario - Next Task - Task with generated substeps
+      Write feature 
+      Write step definitions
+      Write code to make features pass
+    @feature_scenario - Task Done - Task with generated substeps
+    @feature_scenario - Task List - Task with generated substeps
+  @iteration @feature Task Outputs
+     add 'rake spec' to output for pj-tasks-next if @tdd or @tddstep
+  @iteration @feature Executables
   @iteration @feature add passing unit tests as a precondition for pj-tasks-done on tdd step
+@milestone add remaining TDD behaviours
 @milestone Behaviour2 - add behaviour for story-driven-development
 @milestone Behaviour3 - add behaviour for releases and git

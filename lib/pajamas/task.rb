@@ -33,5 +33,9 @@ module Pajamas
         @description
       end
     end
+    
+    def behaviours
+      @str.scan(/@(\w*)/).flatten
+    end
   end
 end

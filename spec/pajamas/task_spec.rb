@@ -57,5 +57,18 @@ describe "Task" do
       @task.to_string.should == "Some Task +done"
     end
   end
+  
+  describe "behaviours" do
+    it "should contain the @keywords" do
+      @task = Pajamas::Task.new "@behaviour Some Task "
+      @task.behaviours.should == ['behaviour']
+    end
+    
+    it "should contain all the @keywords if there are more than one" do
+      @task = Pajamas::Task.new "@behaviour @other_behaviour Some Task "
+      @task.behaviours.should == ['behaviour', 'other_behaviour']
+    end
+
+  end
 
 end

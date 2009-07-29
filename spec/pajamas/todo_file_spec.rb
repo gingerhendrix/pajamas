@@ -19,7 +19,7 @@ describe "TodoFile" do
     it "should create a new Task for each line in the string" do
       mock = mock('task', :null_object => true)
       [@line1, @line2, @line3, @line4, @line5, @line6, @line7, @line8].each do |line|
-        Pajamas::Task.should_receive(:new).with(line).and_return(mock)
+        Pajamas::Task.should_receive(:new).with(line.strip).and_return(mock)
       end
       @todo = Pajamas::TodoFile.read_string(@todoTxt)
     end
@@ -29,7 +29,7 @@ describe "TodoFile" do
 
       @todo.items.should be_kind_of(Array)
       @todo.items.length.should == 8
-      @todo.items[1].to_string.should == @line2
+      @todo.items[1].to_string.should == @line2.strip
     end
     
     it "should have a list of root items" do
@@ -37,7 +37,7 @@ describe "TodoFile" do
 
       @todo.roots.should be_kind_of(Array)
       @todo.roots.length.should == 2
-      @todo.roots[1].to_string.should == @line8
+      @todo.roots[1].to_string.should == @line8.strip
     end
     
     it "should set parent and children of items" do
@@ -48,12 +48,12 @@ describe "TodoFile" do
       @todo.roots[0].children.length.should == 2
  
       @todo.roots[0].children[0].parent.should === @todo.roots[0]
-       @todo.roots[0].children[0].to_string.should == @line2
+       @todo.roots[0].children[0].to_string.should == @line2.strip
       
       @todo.roots[0].children[1].children.length.should == 3
       @todo.roots[0].children[1].children[1].parent.should ===  @todo.roots[0].children[1] 
       @todo.roots[0].children[1].children[1].children.should == []
-      @todo.roots[0].children[1].children[1].to_string.should == @line6
+      @todo.roots[0].children[1].children[1].to_string.should == @line6.strip
     end
     
   end

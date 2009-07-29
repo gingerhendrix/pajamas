@@ -8,8 +8,8 @@ module Pajamas
       end
       
       def generated_substeps
-        [Task.new("Write failing test"), 
-         Task.new("Write code to make test pass")]
+        [Task.new("Write failing test", @task), 
+         Task.new("Write code to make test pass", @task)]
       end
     end
   end

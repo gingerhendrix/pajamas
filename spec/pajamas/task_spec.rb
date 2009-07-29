@@ -16,6 +16,11 @@ describe "Task" do
       @task.children.should == []
       @task.to_string.should == "Some Task"
     end
+    
+    it "should have an optional parent argument" do
+      @task = Pajamas::Task.new "Some Task", :parent
+      @task.parent.should == :parent
+    end
   end
   
   describe "done?" do

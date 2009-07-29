@@ -6,7 +6,7 @@ module Pajamas
     attr_accessor :description
     attr_accessor :done    
     
-    def initialize(str)
+    def initialize(str, parent=nil)
       @str = str
       if @str.include?("+done")
         @description = @str.sub("+done", "").rstrip
@@ -15,6 +15,7 @@ module Pajamas
         @description = @str
         @done = false
       end
+      @parent = parent
       @children = []
     end
     

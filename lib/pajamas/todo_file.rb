@@ -17,7 +17,7 @@ module Pajamas
       todo_string.each_line do |todo_line|
         indent = todo_line.match(/^ */)[0].length / 2
         previous_task = task
-        task = Task.new(todo_line.chomp)
+        task = Task.new(todo_line.strip)
         if indent==0 || !previous_task
           todo.roots << task
         elsif indent==current_indent
@@ -55,7 +55,7 @@ module Pajamas
       if !root.done? 
         cur = nil
         root.children.each do |child|
-          cur = current_from_root(child)
+          cur = current_from_root(child)  if cur.nil?
         end
         return cur || root
       end
@@ -85,12 +85,13 @@ module Pajamas
     
     def current_to_console
       context = []
-      context.unshift current
+      context.unshift current.to_string
       parent = current
       while(parent = parent.parent)
-        context.unshift parent      
+        context.unshift parent.to_string      
       end
-      context.map(&:to_string).join("\n")
+      indent = ""
+      context.map{ |c| out = "#{indent}#{c}"; indent = indent + "  "; out  }.join("\n")
     end
   
   end

@@ -39,6 +39,10 @@ module Pajamas
       end
     end
     
+    def depth_visit(start=0, &block)
+      out = [block.call(self, start)] + children.map { |c| c.depth_visit start+1, &block }.flatten
+    end
+    
     def done?
       @done
     end

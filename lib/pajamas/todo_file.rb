@@ -53,15 +53,16 @@ module Pajamas
     end
     
     def to_console
-      indent = ""
+      indent = "  "
+      lines = []
       @roots.each do |root|
-        
+        lines += root.depth_visit { |node, depth| (indent*depth) + node.to_string }
       end
-      @items.map(&:to_string).join("\n")
+      lines.join("\n")
     end
     
     def to_file
-      @items.map(&:to_string).join("\n")
+       to_console
     end
     
     def save(filename=nil)

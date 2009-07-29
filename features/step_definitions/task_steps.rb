@@ -39,7 +39,7 @@ Then /^the current task should be marked done$/ do
 end
 
 Then /^I should see the task marked done$/ do
-  @output.should == "    Task +done\n"
+  @output.should == "Task +done\n"
 end
 
 Then /^I want to see the substep$/ do

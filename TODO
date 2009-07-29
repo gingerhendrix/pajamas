@@ -18,7 +18,7 @@
           @tdd Task.children should return generated substeps if other children are not already defined +done
           @tdd A TDDBehaviour class should have a generated_substeps attribute +done
           @tdd Task should instantiate behaviour in correct namespace +done
-        Fix other broken specs
+        Fix other broken specs +done
     @feature_scenario - Task Done - Task with generated substeps
     @feature_scenario - Task List - Task with generated substeps
   @iteration @feature Task Outputs

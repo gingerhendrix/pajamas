@@ -96,10 +96,43 @@ describe "TodoFile" do
   end
   
   describe "current_to_console" do
-    it "should return the current task and its context" do
-      @todo = Pajamas::TodoFile.read_string @todoTxt
-      @todo.current_to_console.should == "Context 1\n  Context 2\n    Task"
+    before do
+      @todo = Pajamas::TodoFile.new
+      @current = mock("Current")
+      @current.stub!(:parent)
+      @todo.stub!(:current).and_return(@current)
+      @current.stub!(:to_string)
     end
+    
+    it "should print the current task" do
+      @current.should_receive(:to_string)
+      @todo.current_to_console
+    end
+    
+    it "should print the tasks parent" do
+      parent = mock("Parent", :parent => nil)
+      @current.stub!(:parent).and_return(parent)
+
+      parent.should_receive(:to_string)
+      @todo.current_to_console
+    end
+    
+    it "should print the tasks parent's parent" do
+      grandparent = mock("GrandParent", :parent => nil)
+      parent = mock("Parent", :parent => grandparent, :to_string => "")
+      @current.stub!(:parent).and_return(parent)
+
+      grandparent.should_receive(:to_string)
+      @todo.current_to_console
+    end
+    
+    it "should print the tasks generated_substeps" do
+
+      @current.should_receive(:generated_substeps)
+      @todo.current_to_console
+    end
+
+    
   end
   
   describe "to_file" do

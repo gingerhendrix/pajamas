@@ -68,8 +68,8 @@ module Pajamas
     
     def current_to_console
       context = []
-      context.unshift @current
-      parent = @current
+      context.unshift current
+      parent = current
       while(parent = parent.parent)
         context.unshift parent      
       end

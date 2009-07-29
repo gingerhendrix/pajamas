@@ -11,12 +11,12 @@
         Write feature +done
         Write step definitions +done
         Write code to make features pass
-          @tdd TodoFile.current should return generated substep
+          @tdd TodoFile.current should return generated substep +done
             Refactor TodoFile.current to walk tree +done
           @tdd Task should have attribute - behaviours specified by @ symbol +done
           @tdd Task should try to instantiate a class based on behaviour name +done
           @tdd Task.children should return generated substeps if other children are not already defined +done
-          @tdd A TDDBehaviour class should have a generated_substeps attribute
+          @tdd A TDDBehaviour class should have a generated_substeps attribute +done
     @feature_scenario - Task Done - Task with generated substeps
     @feature_scenario - Task List - Task with generated substeps
   @iteration @feature Task Outputs

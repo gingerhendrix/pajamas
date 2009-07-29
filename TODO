@@ -11,15 +11,12 @@
         Write feature +done
         Write step definitions +done
         Write code to make features pass
-          @tdd TodoFile.current_to_console should call currents generated_substeps method
-            Refactor existing tests and code +done
-              Making current_to_console specs use mocks to isolate from Task class +done
-            Write spec
-            Write code
-          @tdd Task should have method generated_substeps which delegates to a Behaviour subclass
+          @tdd TodoFile.current should return generated substep
+            Refactor TodoFile.current to walk tree +done
           @tdd Task should have attribute - behaviours specified by @ symbol
           @tdd Task should try to instantiate a class based on behaviour name
           @tdd A TDDBehaviour class should have a generated_substeps attribute
+          @tdd Task.children should return generated substeps if other children are not already defined
     @feature_scenario - Task Done - Task with generated substeps
     @feature_scenario - Task List - Task with generated substeps
   @iteration @feature Task Outputs

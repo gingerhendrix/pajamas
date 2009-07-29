@@ -56,11 +56,6 @@ describe "TodoFile" do
       @todo.roots[0].children[1].children[1].to_string.should == @line6
     end
     
-    it "should have a current task" do
-      @todo = Pajamas::TodoFile.read_string(@todoTxt)
-      @todo.current.to_string.should === @todo.items[5].to_string
-    end
-    
   end
   
   describe "#read_file" do
@@ -78,6 +73,38 @@ describe "TodoFile" do
     end
   end
   
+  describe "current" do
+
+    before do
+      @todo = Pajamas::TodoFile.new
+      @root = mock("ROOT", {:children => [], :done? => false})
+      @todo.stub!(:roots).and_return([@root])    
+    end
+
+    it "should start at the root" do
+      @todo.should_receive(:roots).and_return([@root])
+      @todo.current.should == @root
+    end
+    
+    it "should continue to the next item if done" do
+      @root2 = mock("ROOT2", {:children => [], :done? => false})
+
+      @root.should_receive(:done?).and_return(true)
+      @todo.stub!(:roots).and_return([@root, @root2])
+      @todo.current.should == @root2
+    end
+    
+    it "should continue to the children if exist" do
+      @child = mock("child", {:children => [], :done? => false})
+     
+      @root.should_receive(:children).and_return([@child])
+      @todo.current.should == @child
+    end
+
+  
+  end
+
+  
   describe "to_console" do 
   
     it "should return each of the items separated by newlines" do
@@ -86,15 +113,7 @@ describe "TodoFile" do
     end
   
   end
-  
-  describe "current" do
-    it "should have the correct current task" do
-      @todo = Pajamas::TodoFile.read_string @todoTxt
-      @todo.current.to_string.should == "    Task"
-      
-    end
-  end
-  
+   
   describe "current_to_console" do
     before do
       @todo = Pajamas::TodoFile.new
@@ -125,13 +144,6 @@ describe "TodoFile" do
       grandparent.should_receive(:to_string)
       @todo.current_to_console
     end
-    
-    it "should print the tasks generated_substeps" do
-
-      @current.should_receive(:generated_substeps)
-      @todo.current_to_console
-    end
-
     
   end
   

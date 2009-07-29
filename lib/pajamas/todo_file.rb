@@ -3,7 +3,6 @@ module Pajamas
   class TodoFile
     attr_accessor :items
     attr_accessor :roots
-    attr_accessor :current
     attr_accessor :filename
   
     def initialize
@@ -15,12 +14,10 @@ module Pajamas
       todo = TodoFile.new
       current_indent = 0
       task = nil
-      current = nil
       todo_string.each_line do |todo_line|
         indent = todo_line.match(/^ */)[0].length / 2
         previous_task = task
         task = Task.new(todo_line.chomp)
-        current = task if (!current && !task.done?)
         if indent==0 || !previous_task
           todo.roots << task
         elsif indent==current_indent
@@ -38,11 +35,31 @@ module Pajamas
           task.parent = parent
         end
         current_indent = indent
-        current = task if(task.parent === current && !task.done?)
         todo.items << task
       end
-      todo.current = current
       todo
+    end
+    
+    def current
+      i = 0
+      cur = nil
+      while cur.nil? && i < roots.length do
+        root = roots[i]
+        cur = current_from_root(root)
+        i = i+1
+      end
+      cur
+    end
+    
+    def current_from_root(root)
+      if !root.done? 
+        cur = nil
+        root.children.each do |child|
+          cur = current_from_root(child)
+        end
+        return cur || root
+      end
+      return nil    
     end
     
     def self.read_file(filename)

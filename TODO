@@ -3,11 +3,12 @@
   @iteration task-next - read TODO and print next/current task with context +done
   @iteration @feature task-done - mark a task as done and move the current task pointer +done
 @patch Add executables to gem +done
-@milestone Behaviour - add behaviour features using @tdd as an example
+@milestone Behaviour - add behaviour features using @tdd as an example - should generate 'Write Spec' and 'Write code to make spec pass' substeps
+  @git create topic branch +done
   @iteration @feature add substeps - 'Write failing test' and 'Write code to make test pass' to @tdd tasks
     @feature_scenario - Next Task - Task with generated substeps
-      Write feature 
-      Write step definitions
+      Write feature +done
+      Write step definitions +done
       Write code to make features pass
     @feature_scenario - Task Done - Task with generated substeps
     @feature_scenario - Task List - Task with generated substeps

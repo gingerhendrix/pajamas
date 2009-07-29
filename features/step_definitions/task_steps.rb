@@ -13,11 +13,15 @@ end
 Given /^a todo list with some done items$/ do
   FileUtils.copy FIXTURES_DIR + "/TODO_WITH_DONE", LIVE_DIR + "/TODO_WITH_DONE"
   @todoFile = LIVE_DIR + "/TODO_WITH_DONE";
+end
 
+Given /^a todo list with a task with a generated substep$/ do
+  FileUtils.copy FIXTURES_DIR + "/TODO_WITH_GENERATED_SUBSTEP", LIVE_DIR + "/TODO_WITH_GENERATED_SUBSTEP"
+  @todoFile = LIVE_DIR + "/TODO_WITH_GENERATED_SUBSTEP";
 end
 
 When /^I execute "([^\"]*)"$/ do |command|
-  @output = `./script/#{command} #{@todoFile}`
+  @output = `./bin/#{command} #{@todoFile}`
 end
 
 Then /^I should see all the tasks$/ do
@@ -36,5 +40,9 @@ end
 
 Then /^I should see the task marked done$/ do
   @output.should == "    Task +done\n"
+end
+
+Then /^I want to see the substep$/ do
+  @output.should == "@tdd Some Task\n  Write Spec\n"
 end
 

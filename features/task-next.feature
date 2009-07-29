@@ -7,4 +7,7 @@ Feature: Next Task
     When I execute "pj-tasks-next"
     Then I want to see the current task and its parents
     
-    
+  Scenario: Task with generated substeps
+    Given a todo list with a task with a generated substep
+    When I execute "pj-tasks-next"
+    Then I want to see the substep

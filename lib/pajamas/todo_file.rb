@@ -41,25 +41,9 @@ module Pajamas
     end
     
     def current
-      i = 0
-      cur = nil
-      while cur.nil? && i < roots.length do
-        root = roots[i]
-        cur = current_from_root(root)
-        i = i+1
-      end
-      cur
-    end
-    
-    def current_from_root(root)
-      if !root.done? 
-        cur = nil
-        root.children.each do |child|
-          cur = current_from_root(child)  if cur.nil?
-        end
-        return cur || root
-      end
-      return nil    
+      current = nil
+      roots.detect { |root| current = root.find_deep { |t| !t.done? } if current.nil? }
+      current
     end
     
     def self.read_file(filename)
@@ -69,7 +53,11 @@ module Pajamas
     end
     
     def to_console
-       @items.map(&:to_string).join("\n")
+      indent = ""
+      @roots.each do |root|
+        
+      end
+      @items.map(&:to_string).join("\n")
     end
     
     def to_file

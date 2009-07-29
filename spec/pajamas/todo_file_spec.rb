@@ -77,30 +77,19 @@ describe "TodoFile" do
 
     before do
       @todo = Pajamas::TodoFile.new
-      @root = mock("ROOT", {:children => [], :done? => false})
-      @todo.stub!(:roots).and_return([@root])    
+      @root1 = mock("ROOT1", {:find_deep => nil})
+      @root2 = mock("ROOT2", {:find_deep => :result})
+      @root3 = mock("ROOT3", {:find_deep => :bad_result})
+      @todo.stub!(:roots).and_return([@root1, @root2, @root3])    
     end
 
-    it "should start at the root" do
-      @todo.should_receive(:roots).and_return([@root])
-      @todo.current.should == @root
+    it "should start return the first result from its roots" do
+      @todo.current.should == :result
     end
     
-    it "should continue to the next item if done" do
-      @root2 = mock("ROOT2", {:children => [], :done? => false})
-
-      @root.should_receive(:done?).and_return(true)
-      @todo.stub!(:roots).and_return([@root, @root2])
-      @todo.current.should == @root2
+    it "the selector should call t.done?" do
+        #???
     end
-    
-    it "should continue to the children if exist" do
-      @child = mock("child", {:children => [], :done? => false})
-     
-      @root.should_receive(:children).and_return([@child])
-      @todo.current.should == @child
-    end
-
   
   end
 

@@ -36,6 +36,35 @@ describe "Task" do
   
   end
   
+  describe "find_deep" do
+  
+    before do
+      @task = Pajamas::Task.new "Some Task"
+    end
+  
+    it "should return nil, if it doesn't match the selector" do
+      @task.find_deep { |t| false }.should == nil
+    end
+    
+    it "should return itself, it it does match the selector and has no children" do
+      @task.should_receive(:children).and_return([])
+      @task.find_deep { |t| true }.should == @task
+    end
+    
+    it "should recurse on its children, and return the first with a match" do
+      child1 = mock("child1")
+      child1.should_receive(:find_deep).and_return(nil)
+      child2 = mock("child2")
+      child2.should_receive(:find_deep).and_return(:result)
+      child3 = mock("child3")
+      child3.should_not_receive(:find_deep)
+
+      @task.should_receive(:children).and_return([child1, child2, child3])
+      @task.find_deep { |t| true }.should == :result
+    end
+  
+  end
+  
   describe "done!" do
     it "should set the task to done" do
       @task = Pajamas::Task.new "Some Task"

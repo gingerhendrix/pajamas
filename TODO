@@ -5,7 +5,7 @@
 @patch Add executables to gem +done
 @milestone Behaviour - add behaviour features using @tdd as an example - should generate 'Write Spec' and 'Write code to make spec pass' substeps
   @git create topic branch +done
-  @iteration 
+  @iteration
     @feature add substeps - 'Write failing test' and 'Write code to make test pass' to @tdd tasks
       @feature_scenario - Next Task - Task with generated substeps
         Write feature +done

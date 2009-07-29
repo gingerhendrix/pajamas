@@ -28,6 +28,17 @@ module Pajamas
       @children
     end
     
+    def find_deep(&selector)
+      result = selector.call(self)
+      if result
+        child_result = nil
+        children.each { |c| child_result = c.find_deep &selector if child_result.nil? }
+        child_result.nil? ? self : child_result 
+      else
+       nil
+      end
+    end
+    
     def done?
       @done
     end

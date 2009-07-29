@@ -46,3 +46,13 @@ Then /^I want to see the substep$/ do
   @output.should == "@tdd Some Task\n  Write failing test\n"
 end
 
+Then /^the generated task should be marked done$/ do
+  todo = Pajamas::TodoFile.read_file @todoFile
+  puts todo.to_console
+  todo.items[1].should be_done
+end
+
+Then /^I should see the generated task marked done$/ do
+  @output.should == "Write failing test +done\n"
+end
+

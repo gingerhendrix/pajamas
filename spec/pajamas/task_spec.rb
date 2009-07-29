@@ -97,8 +97,20 @@ describe "Task" do
       @task.behaviours.length.should == 1
       @task.behaviours[0].should be_kind_of(BehaviourBehaviour)
     end
-
-
   end
+  
+  describe "children" do
+    
+    it "should include generated_children if children is empty" do
+      @task = Pajamas::Task.new ""
+      behaviour = mock("Behaviour")
+      @task.should_receive(:behaviours).and_return([behaviour])
+      
+      behaviour.should_receive(:generated_substeps).and_return([:substeps])
+      @task.children.should == [:substeps]
+    end
+    
+  end
+  
 
 end

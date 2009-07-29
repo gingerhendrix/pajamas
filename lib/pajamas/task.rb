@@ -18,6 +18,15 @@ module Pajamas
       @children = []
     end
     
+    def children
+      if @children.empty?
+        behaviours.each do |b|
+          @children = @children + b.generated_substeps
+        end
+      end
+      @children
+    end
+    
     def done?
       @done
     end

@@ -49,7 +49,8 @@ module Pajamas
     
     def behaviours
       behaviour_names.map { |b| 
-        clazz = "#{b}_behaviour".classify.constantize rescue nil
+        clazz_name = "#{b}_behaviour".classify
+        clazz = "Pajamas::Behaviours::#{clazz_name}".constantize rescue nil
         clazz ? clazz.new(self) : nil
       }.compact
     end

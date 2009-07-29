@@ -1,5 +1,12 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
+module Pajamas  
+  module Behaviours
+    class BehaviourBehaviour; def initialize(t); end; end;
+    class OtherBehaviourBehaviour; def initialize(t); end; end;
+  end
+end
+
 describe "Task" do
   
   describe "initialize" do
@@ -73,29 +80,25 @@ describe "Task" do
   
   describe "behaviours" do
     it "should attempt to instantiate behaviours" do
-      class BehaviourBehaviour; def initialize(t); end; end;
       @task = Pajamas::Task.new ""
       @task.stub!(:behaviour_names).and_return(["behaviour"])
       @task.behaviours.length.should == 1
-      @task.behaviours[0].should be_kind_of(BehaviourBehaviour)
+      @task.behaviours[0].should be_kind_of(Pajamas::Behaviours::BehaviourBehaviour)
     end
     
     it "should attempt to instantiate all behaviours" do
-      class BehaviourBehaviour; def initialize(t); end; end;
-      class OtherBehaviourBehaviour; def initialize(t); end; end;
       @task = Pajamas::Task.new ""
       @task.stub!(:behaviour_names).and_return(["behaviour", "other_behaviour"])
       @task.behaviours.length.should == 2
-      @task.behaviours[0].should be_kind_of(BehaviourBehaviour)
-      @task.behaviours[1].should be_kind_of(OtherBehaviourBehaviour)
+      @task.behaviours[0].should be_kind_of(Pajamas::Behaviours::BehaviourBehaviour)
+      @task.behaviours[1].should be_kind_of(Pajamas::Behaviours::OtherBehaviourBehaviour)
     end
     
     it "should ignore missing behaviours" do
-      class BehaviourBehaviour; def initialize(t); end; end;
       @task = Pajamas::Task.new ""
       @task.stub!(:behaviour_names).and_return(["behaviour", "missing_behaviour"])
       @task.behaviours.length.should == 1
-      @task.behaviours[0].should be_kind_of(BehaviourBehaviour)
+      @task.behaviours[0].should be_kind_of(Pajamas::Behaviours::BehaviourBehaviour)
     end
   end
   

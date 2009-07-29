@@ -1,4 +1,7 @@
 
+require 'rubygems'
+require 'activesupport'
+
 $: << File.dirname(__FILE__)
 
 require 'pajamas/todo_file'

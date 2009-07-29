@@ -34,8 +34,15 @@ module Pajamas
       end
     end
     
-    def behaviours
+    def behaviour_names
       @str.scan(/@(\w*)/).flatten
+    end
+    
+    def behaviours
+      behaviour_names.map { |b| 
+        clazz = "#{b}_behaviour".classify.constantize rescue nil
+        clazz ? clazz.new(self) : nil
+      }.compact
     end
   end
 end

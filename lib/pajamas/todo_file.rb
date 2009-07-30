@@ -15,27 +15,29 @@ module Pajamas
       current_indent = 0
       task = nil
       todo_string.each_line do |todo_line|
-        indent = todo_line.match(/^ */)[0].length / 2
-        previous_task = task
-        task = Task.new(todo_line.strip)
-        if indent==0 || !previous_task
-          todo.roots << task
-        elsif indent==current_indent
-          previous_task.parent.children << task
-          task.parent = previous_task.parent
-        elsif indent>current_indent
-          previous_task.children << task
-          task.parent = previous_task
-        elsif indent<current_indent
-          parent = previous_task.parent
-          (current_indent - indent).times do 
-            parent = parent.parent
+        if !todo_line.strip.empty? 
+          indent = todo_line.match(/^ */)[0].length / 2
+          previous_task = task
+          task = Task.new(todo_line.strip)
+          if indent==0 || !previous_task
+            todo.roots << task
+          elsif indent==current_indent
+            previous_task.parent.children << task
+            task.parent = previous_task.parent
+          elsif indent>current_indent
+            previous_task.children << task
+            task.parent = previous_task
+          elsif indent<current_indent
+            parent = previous_task.parent
+            (current_indent - indent).times do 
+              parent = parent.parent
+            end
+            parent.children << task
+            task.parent = parent
           end
-          parent.children << task
-          task.parent = parent
+          current_indent = indent
+          todo.items << task
         end
-        current_indent = indent
-        todo.items << task
       end
       todo
     end
@@ -58,7 +60,7 @@ module Pajamas
       @roots.each do |root|
         lines += root.depth_visit { |node, depth| (indent*depth) + node.to_string }
       end
-      lines.join("\n")
+      lines.join("\n") + "\n"
     end
     
     def to_file

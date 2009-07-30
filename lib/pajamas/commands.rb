@@ -19,6 +19,7 @@ module Pajamas
       class Next < Base
         def run
           @todoFile = TodoFile.read_file(@filename)
+          @todoFile.save
           puts @todoFile.current_to_console
         end
       end

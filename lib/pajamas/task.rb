@@ -22,7 +22,9 @@ module Pajamas
     def children
       if @children.empty?
         behaviours.each do |b|
-          @children = @children + b.generated_substeps
+          if !behaviour_done? b
+            @children = @children + b.generated_substeps            
+          end
         end
       end
       @children

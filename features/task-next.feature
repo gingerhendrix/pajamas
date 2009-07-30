@@ -6,8 +6,12 @@ Feature: Next Task
     Given a todo list with some done items
     When I execute "pj-tasks-next"
     Then I want to see the current task and its parents
+    And the file should not be changed
     
   Scenario: Task with generated substeps
     Given a todo list with a task with a generated substep
     When I execute "pj-tasks-next"
     Then I want to see the substep
+    And the file should include the substeps
+    And the substep should be marked generated - '!'
+

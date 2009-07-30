@@ -138,7 +138,7 @@ describe "Task" do
   
   describe "children" do
     
-    it "should include generated_children if children is empty" do
+    it "should include generated_children" do
       @task = Pajamas::Task.new ""
       behaviour = mock("Behaviour")
       @task.should_receive(:behaviours).and_return([behaviour])
@@ -147,6 +147,9 @@ describe "Task" do
       @task.children.should == [:substeps]
     end
     
+    it "should not include generated_childen of behaviours marked done" do
+    
+    end
   end
   
 

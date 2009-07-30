@@ -5,19 +5,27 @@ require 'pajamas'
 FIXTURES_DIR = File.dirname(__FILE__) + "/../fixtures"
 LIVE_DIR = File.dirname(__FILE__) + "/../fixtures/live"
 
+class TodoWorld
+  def fixture(name)
+    @fixtureFile = FIXTURES_DIR + "/" + name 
+    @todoFile = LIVE_DIR + "/" + name;
+    FileUtils.copy @fixtureFile, @todoFile
+  end
+end
+World do
+  TodoWorld.new
+end
+
 Given /^a todo list$/ do
-  FileUtils.copy FIXTURES_DIR + "/TODO", LIVE_DIR + "/TODO"
-  @todoFile = LIVE_DIR + "/TODO";
+  fixture('TODO')
 end
 
 Given /^a todo list with some done items$/ do
-  FileUtils.copy FIXTURES_DIR + "/TODO_WITH_DONE", LIVE_DIR + "/TODO_WITH_DONE"
-  @todoFile = LIVE_DIR + "/TODO_WITH_DONE";
+  fixture('TODO_WITH_DONE')
 end
 
 Given /^a todo list with a task with a generated substep$/ do
-  FileUtils.copy FIXTURES_DIR + "/TODO_WITH_GENERATED_SUBSTEP", LIVE_DIR + "/TODO_WITH_GENERATED_SUBSTEP"
-  @todoFile = LIVE_DIR + "/TODO_WITH_GENERATED_SUBSTEP";
+  fixture('TODO_WITH_GENERATED_SUBSTEP')
 end
 
 When /^I execute "([^\"]*)"$/ do |command|
@@ -55,4 +63,21 @@ end
 Then /^I should see the generated task marked done$/ do
   @output.should == "Write failing test +done\n"
 end
+
+Then /^the file should not be changed$/ do
+  File.read(@todoFile).should == File.read(@fixtureFile)
+end
+
+Then /^the file should include the substeps$/ do
+  lines = File.read(@todoFile).split("\n")
+  lines.length.should == 4
+  lines[1].should == "  Write failing test"
+  lines[2].should == "  Write code to make test pass"
+end
+
+Then /^the substep should be marked generated \- '!'$/ do
+  lines = File.read(@todoFile).split("\n")
+  lines[0].should == "@tdd! Some Task"
+end
+
 

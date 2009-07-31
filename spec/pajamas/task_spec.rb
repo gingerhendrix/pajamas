@@ -2,8 +2,8 @@ require File.dirname(__FILE__) + '/../spec_helper'
 
 module Pajamas  
   module Behaviours
-    class BehaviourBehaviour; def initialize(t); end; end;
-    class OtherBehaviourBehaviour; def initialize(t); end; end;
+    class BehaviourBehaviour < Behaviour; def initialize(t); end; end;
+    class OtherBehaviourBehaviour  < Behaviour; def initialize(t); end; end;
   end
 end
 
@@ -97,6 +97,12 @@ describe "Task" do
       @task.done!
       @task.to_string.should == "Some Task +done"
     end
+    
+    it "should have done behaviours marked done" do
+      @task = Pajamas::Task.new "@behaviour"
+      @task.behaviours[0].done = true
+      @task.to_string.should == "@behaviour!"
+    end
   end
   
   describe "behaviour_names" do
@@ -110,45 +116,85 @@ describe "Task" do
       @task.behaviour_names.should == ['behaviour', 'other_behaviour']
     end
 
+    it "should contain the ! if the @keyword is marked done" do
+      @task = Pajamas::Task.new "@behaviour @other_behaviour! Some Task! "
+      @task.behaviour_names.should == ['behaviour', 'other_behaviour!']
+    end
+
   end
   
   describe "behaviours" do
     it "should attempt to instantiate behaviours" do
       @task = Pajamas::Task.new ""
       @task.stub!(:behaviour_names).and_return(["behaviour"])
-      @task.behaviours.length.should == 1
-      @task.behaviours[0].should be_kind_of(Pajamas::Behaviours::BehaviourBehaviour)
+
+      behave = @task.generate_behaviours
+      behave.length.should == 1
+      behave[0].should be_kind_of(Pajamas::Behaviours::BehaviourBehaviour)
     end
     
     it "should attempt to instantiate all behaviours" do
       @task = Pajamas::Task.new ""
       @task.stub!(:behaviour_names).and_return(["behaviour", "other_behaviour"])
-      @task.behaviours.length.should == 2
-      @task.behaviours[0].should be_kind_of(Pajamas::Behaviours::BehaviourBehaviour)
-      @task.behaviours[1].should be_kind_of(Pajamas::Behaviours::OtherBehaviourBehaviour)
+
+      behave = @task.generate_behaviours
+      behave.length.should == 2
+      behave[0].should be_kind_of(Pajamas::Behaviours::BehaviourBehaviour)
+      behave[0].should_not be_done
+      behave[1].should be_kind_of(Pajamas::Behaviours::OtherBehaviourBehaviour)
+      behave[1].should_not be_done
     end
     
     it "should ignore missing behaviours" do
       @task = Pajamas::Task.new ""
       @task.stub!(:behaviour_names).and_return(["behaviour", "missing_behaviour"])
-      @task.behaviours.length.should == 1
-      @task.behaviours[0].should be_kind_of(Pajamas::Behaviours::BehaviourBehaviour)
+
+      behave = @task.generate_behaviours
+      behave.length.should == 1
+      behave[0].should be_kind_of(Pajamas::Behaviours::BehaviourBehaviour)
     end
+    
+    it "should mark done behavours done" do
+      @task = Pajamas::Task.new ""
+      @task.stub!(:behaviour_names).and_return(["behaviour!"])
+
+      behave = @task.generate_behaviours
+      behave.length.should == 1
+      behave[0].should be_kind_of(Pajamas::Behaviours::BehaviourBehaviour)
+      behave[0].should be_done
+    end
+    
+    
   end
   
-  describe "children" do
+  describe "generate_children" do
+    
+    before do
+      @task = Pajamas::Task.new ""
+      @behaviour = mock("Behaviour")
+      @behaviour.stub!(:done?).and_return(false)
+      @behaviour.stub!(:done=)
+     @behaviour.stub!(:generated_substeps).and_return([:substeps])
+      @task.stub!(:behaviours).and_return([@behaviour])
+      
+    end
     
     it "should include generated_children" do
-      @task = Pajamas::Task.new ""
-      behaviour = mock("Behaviour")
-      @task.should_receive(:behaviours).and_return([behaviour])
-      
-      behaviour.should_receive(:generated_substeps).and_return([:substeps])
+      @behaviour.should_receive(:generated_substeps).and_return([:substeps])
+      @task.generate_children
       @task.children.should == [:substeps]
     end
     
     it "should not include generated_childen of behaviours marked done" do
+      @behaviour.should_receive(:done?).and_return(true) 
+      @behaviour.should_not_receive(:generated_substeps)
+      @task.generate_children
+      @task.children.should == []
+    end
     
+    it "should mark behaviour done" do
+      @behaviour.should_receive(:done=).with(true)
+      @task.generate_children
     end
   end
   

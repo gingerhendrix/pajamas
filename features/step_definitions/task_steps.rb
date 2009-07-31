@@ -51,7 +51,7 @@ Then /^I should see the task marked done$/ do
 end
 
 Then /^I want to see the substep$/ do
-  @output.should == "@tdd Some Task\n  Write failing test\n"
+  @output.should == "@tdd! Some Task\n  Write failing test\n"
 end
 
 Then /^the generated task should be marked done$/ do

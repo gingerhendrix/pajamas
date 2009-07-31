@@ -98,7 +98,7 @@ describe "TodoFile" do
   
     it "should return each of the items separated by newlines" do
       @todo = Pajamas::TodoFile.read_string "Line1\nLine2\nLine3"
-      @todo.to_console.should == "Line1\nLine2\nLine3"
+      @todo.to_console.should == "Line1\nLine2\nLine3\n"
     end
   
   end
@@ -139,7 +139,7 @@ describe "TodoFile" do
   describe "to_file" do
     it "should return each of the items separated by newlines" do
       @todo = Pajamas::TodoFile.read_string "Line1\nLine2\nLine3"
-      @todo.to_file.should == "Line1\nLine2\nLine3"
+      @todo.to_file.should == "Line1\nLine2\nLine3\n"
     end
   end
   

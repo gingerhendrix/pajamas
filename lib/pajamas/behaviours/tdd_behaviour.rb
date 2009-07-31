@@ -1,11 +1,6 @@
 module Pajamas
   module Behaviours
-    class TddBehaviour
-      attr_accessor :task
-
-      def initialize(task)
-        @task = task
-      end
+    class TddBehaviour < Behaviour
       
       def generated_substeps
         [Task.new("Write failing test", @task), 

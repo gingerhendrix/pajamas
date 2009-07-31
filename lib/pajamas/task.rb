@@ -5,6 +5,7 @@ module Pajamas
     attr_accessor :children
     attr_accessor :description
     attr_accessor :done    
+    attr_accessor :behaviours
     
     def initialize(str, parent=nil)
       @str = str
@@ -17,17 +18,31 @@ module Pajamas
       end
       @parent = parent
       @children = []
+      @behaviours = generate_behaviours
+      generate_children
     end
     
-    def children
-      if @children.empty?
-        behaviours.each do |b|
-          if !behaviour_done? b
+    def generate_children
+      behaviours.each do |b|
+         if !b.done?
             @children = @children + b.generated_substeps            
-          end
-        end
+            b.done = true
+         end
       end
-      @children
+    end
+    
+    def generate_behaviours
+      behaviour_names.map { |b| 
+        if b.include? '!'
+          b = b.gsub(/!/, "")
+          d = true
+        end
+        clazz_name = "#{b}_behaviour".classify
+        clazz = "Pajamas::Behaviours::#{clazz_name}".constantize rescue nil
+        obj = clazz ? clazz.new(self) : nil
+        obj.done = d if obj
+        obj
+      }.compact
     end
     
     def find_deep(&selector)
@@ -54,23 +69,17 @@ module Pajamas
     end
     
     def to_string
-      if done
-        @description + " +done"
-      else
-        @description
+      line = @description
+      line += " +done" if done?
+      behaviours.each do |b|
+        line.gsub!(/@#{b.name}(!)*/, "@#{b.name}!")
       end
+      line
     end
     
     def behaviour_names
-      @str.scan(/@(\w*)/).flatten
+      @str.scan(/@(\w*(?:!)?)/).flatten
     end
-    
-    def behaviours
-      behaviour_names.map { |b| 
-        clazz_name = "#{b}_behaviour".classify
-        clazz = "Pajamas::Behaviours::#{clazz_name}".constantize rescue nil
-        clazz ? clazz.new(self) : nil
-      }.compact
-    end
+  
   end
 end

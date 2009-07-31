@@ -23,8 +23,8 @@
         Write feature +done
         Write step definitions +done
         Write code to make features pass +done
-      Add file specifications to features
-        Add to task next
+      Add file specifications to features +done
+        Add to task next +done
         Add to task done
       @feature_scenario - Task List - Task with generated substeps
   @iteration @feature Task Outputs

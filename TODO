@@ -28,7 +28,7 @@
         Add to task done
       @feature_scenario - Task List - Task with generated substeps
   @iteration @feature Task Outputs
-     add 'rake spec' to output for pj-tasks-next if @tdd or @tddstep
+     add 'rake spec' to output for pj-tasks-next if @spec
   @iteration @feature Executables
   @iteration @feature add passing unit tests as a precondition for pj-tasks-done on tdd step
 @milestone add remaining TDD behaviours

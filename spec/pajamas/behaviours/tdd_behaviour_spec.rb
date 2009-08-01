@@ -22,6 +22,7 @@ describe "TddBehaviour" do
       Task.should_receive(:new).with('Write code to make test pass', :task).and_return(task2)
       @behave.generated_substeps.should == [task1, task2]     
     end
+    
   end
 
 end

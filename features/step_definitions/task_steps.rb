@@ -41,6 +41,7 @@ end
 
 When /^I execute "([^\"]*)"$/ do |command|
   @output = `./bin/#{command} #{@todoFile}`
+  puts @output
   @output_lines = @output.split("\n")
 end
 
@@ -54,7 +55,6 @@ end
 
 Then /^the current task should be marked done$/ do
   todo = Pajamas::TodoFile.read_file @todoFile
-  puts todo.to_console
   todo.items[5].should be_done
 end
 

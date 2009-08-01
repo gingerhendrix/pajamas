@@ -19,6 +19,10 @@ module Pajamas
       def generated_substeps
         []
       end
+      
+      def message
+        nil
+      end
     end
   end
 end

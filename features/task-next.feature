@@ -40,6 +40,6 @@ Feature: Next Task
     Given an empty todo list 
     Given the todo list has item "@spec Task"
     When I execute "pj-tasks-next"
-    Then I want to see "@spec Task" on line 0
+    Then I want to see "@spec! Task" on line 0
     And I want to see "Message: Write a failing spec - run 'rake spec'" on line 2
-    And the file should not be changed
+    And the file should include "@spec! Task" on line 0

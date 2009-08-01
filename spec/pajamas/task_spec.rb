@@ -167,6 +167,24 @@ describe "Task" do
     
   end
   
+  describe "message" do
+    
+    before do
+      @task = Pajamas::Task.new ""
+      @behaviour1 = mock("Behaviour")
+      @behaviour2 = mock("Behaviour")
+      @task.stub!(:behaviours).and_return([@behaviour1, @behaviour2])
+    end
+    
+    it "should include the behaviours messages" do
+      @behaviour1.should_receive(:message).and_return("Message1")
+      @behaviour2.should_receive(:message).and_return("Message2")
+      
+      @task.message.should == "Message1\nMessage2"
+    end
+    
+  end
+  
   describe "generate_children" do
     
     before do

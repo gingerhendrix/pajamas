@@ -10,3 +10,4 @@ require 'pajamas/commands'
 
 require 'pajamas/behaviours/behaviour'
 require 'pajamas/behaviours/tdd_behaviour'
+require 'pajamas/behaviours/spec_behaviour'

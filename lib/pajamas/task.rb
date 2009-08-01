@@ -68,6 +68,10 @@ module Pajamas
       @done = true
     end
     
+    def message
+      behaviours.map(&:message).join("\n")
+    end
+    
     def to_string
       line = @description
       line += " +done" if done?

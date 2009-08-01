@@ -16,9 +16,14 @@ describe "Behaviour" do
   end
 
 
-  it "should have name method" do
+  it "name method should be derieved from class name" do
     class NamedBehaviour < Pajamas::Behaviours::Behaviour; end;
     @behave = NamedBehaviour.new :task
     @behave.name.should == "named"  
+  end
+  
+  it "should have message" do
+    @behave = Pajamas::Behaviours::Behaviour.new :task
+    @behave.message.should be_nil
   end
 end

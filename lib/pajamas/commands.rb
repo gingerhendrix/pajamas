@@ -22,6 +22,7 @@ module Pajamas
           @todoFile = TodoFile.read_file(@filename)
           @todoFile.save
           puts @todoFile.current_to_console
+          puts "\nMessage: #{@todoFile.current.message}\n"
         end
       end
       

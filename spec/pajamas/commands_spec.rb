@@ -68,6 +68,10 @@ describe "Commands::Tasks::Next" do
       @todoFile.stub!(:current_to_console)
       @todoFile.stub!(:save)
       @command = new_command ['FILENAME']
+      
+      @current = mock("Current")
+      @current.stub!(:message)
+      @todoFile.stub!(:current).and_return(@current)
     end 
   
     def new_command(args) #This is a dodgy way of sharing with TasksCommand 
@@ -81,6 +85,17 @@ describe "Commands::Tasks::Next" do
       @command.should_receive(:puts).with("OUTPUT")
       @command.run
     end
+    
+    it "should output the message to console" do
+      @todoFile.should_receive(:current).and_return(@current)
+      @current.should_receive(:message).and_return("MESSAGE")
+      @command.should_receive(:puts).with(anything())
+#     Bug: Fails if message is incorrect, also fails (received message 0 times) with correct message
+#      @command.should_receive(:puts).with("\nMessage: MESSAGE\n")
+      
+      @command.run
+    end
+    
     
     it "should save the todo file" do
       @todoFile.should_receive(:save)

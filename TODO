@@ -5,28 +5,7 @@
 @patch Add executables to gem +done
 @milestone Behaviour - add behaviour features using @tdd as an example - should generate 'Write Spec' and 'Write code to make spec pass' substeps
   @git create topic branch +done
-  @iteration +done
-    @feature add generated substeps +done
-      @feature_scenario - Next Task - Task with generated substeps +done
-        Write feature +done
-        Write step definitions +done
-        Write code to make features pass +done
-          @tdd TodoFile.current should return generated substep +done
-            Refactor TodoFile.current to walk tree +done
-          @tdd Task should have attribute - behaviours specified by @ symbol +done
-          @tdd Task should try to instantiate a class based on behaviour name +done
-          @tdd Task.children should return generated substeps if other children are not already defined +done
-          @tdd A TDDBehaviour class should have a generated_substeps attribute +done
-          @tdd Task should instantiate behaviour in correct namespace +done
-        Fix other broken specs +done
-      @feature_scenario - Task Done - Task with generated substeps +done
-        Write feature +done
-        Write step definitions +done
-        Write code to make features pass +done
-      Add file specifications to features +done
-        Add to task next +done
-        Add to task done +done
-      @feature_scenario - Task List - Task with generated substeps +done
+  @iteration @feature add generated substeps +done
   @iteration @feature Task Outputs
      add 'rake spec' to output for pj-tasks-next if @spec
   @iteration @feature Executables

@@ -34,6 +34,8 @@ describe "Commands::Tasks::List" do
 
     before(:each) do
       @todoFile.stub!(:to_console)
+      @todoFile.stub!(:save)
+      @command = new_command ['FILENAME']
     end 
   
     def new_command(args)
@@ -44,11 +46,15 @@ describe "Commands::Tasks::List" do
     
     it "should output the files to_console" do
       @todoFile.should_receive(:to_console).and_return("OUTPUT")
-      command = new_command ['FILENAME']
-      command.should_receive(:puts).with("OUTPUT")
-      
-      command.run
+
+      @command.should_receive(:puts).with("OUTPUT")
+      @command.run
     end
+    
+    it "should save the todo file" do
+      @todoFile.should_receive(:save)
+      @command.run
+    end 
     
   end
 end

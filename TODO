@@ -6,7 +6,7 @@
 @milestone Behaviour - add behaviour features using @tdd as an example - should generate 'Write Spec' and 'Write code to make spec pass' substeps
   @git create topic branch +done
   @iteration +done
-    @feature add generated substeps
+    @feature add generated substeps +done
       @feature_scenario - Next Task - Task with generated substeps +done
         Write feature +done
         Write step definitions +done
@@ -25,11 +25,12 @@
         Write code to make features pass +done
       Add file specifications to features +done
         Add to task next +done
-        Add to task done
-      @feature_scenario - Task List - Task with generated substeps
+        Add to task done +done
+      @feature_scenario - Task List - Task with generated substeps +done
   @iteration @feature Task Outputs
      add 'rake spec' to output for pj-tasks-next if @spec
   @iteration @feature Executables
+    make 'rake spec' executable for pj-tasks-next
   @iteration @feature add passing unit tests as a precondition for pj-tasks-done on tdd step
 @milestone add remaining TDD behaviours
 @milestone Behaviour2 - add behaviour for story-driven-development

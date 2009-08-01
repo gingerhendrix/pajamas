@@ -71,13 +71,32 @@ end
 Then /^the file should include the substeps$/ do
   lines = File.read(@todoFile).split("\n")
   lines.length.should == 4
-  lines[1].should == "  Write failing test"
-  lines[2].should == "  Write code to make test pass"
+  lines[1].should be_include "Write failing test"
+  lines[2].should be_include "Write code to make test pass"
 end
 
 Then /^the substep should be marked generated \- '!'$/ do
   lines = File.read(@todoFile).split("\n")
   lines[0].should == "@tdd! Some Task"
 end
+
+Then /^the file should have the task marked done$/ do
+  lines = File.read(@todoFile).split("\n")
+  lines[5].should == "    Task +done"
+end
+
+Then /^the file should have the generated task marked done$/ do
+  lines = File.read(@todoFile).split("\n")
+  lines[1].should be_include "+done"
+
+end
+
+Then /^I should see all the tasks with the generated substeps$/ do
+  lines = @output.split("\n")
+  lines[1].should be_include "Write failing test"
+  lines[2].should be_include "Write code to make test pass"
+end
+
+
 
 

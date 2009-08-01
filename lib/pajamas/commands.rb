@@ -12,6 +12,7 @@ module Pajamas
       class List < Base
         def run
           @todoFile = TodoFile.read_file(@filename)
+          @todoFile.save 
           puts @todoFile.to_console
         end
       end

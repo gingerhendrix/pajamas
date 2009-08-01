@@ -7,7 +7,12 @@
   @git create topic branch +done
   @iteration @feature add generated substeps +done
   @iteration @feature Task Outputs
-     add 'rake spec' to output for pj-tasks-next if @spec
+    Write feature scenarios
+      @feature_scenario pj-tasks-next - add 'rake spec' to output for pj-tasks-next if @spec
+        Write scenarios +done
+        Write steps
+          Refactor current scnearios
+        Write code to make steps pass
   @iteration @feature Executables
     make 'rake spec' executable for pj-tasks-next
   @iteration @feature add passing unit tests as a precondition for pj-tasks-done on tdd step

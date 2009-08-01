@@ -10,6 +10,7 @@ class TodoWorld
     @fixtureFile = FIXTURES_DIR + "/" + name 
     @todoFile = LIVE_DIR + "/" + name;
     FileUtils.copy @fixtureFile, @todoFile
+    @originalItems = File.read(@todoFile).split("\n")
   end
 end
 World do
@@ -19,6 +20,16 @@ end
 Given /^a todo list$/ do
   fixture('TODO')
 end
+
+Given /^an empty todo list$/ do
+  fixture('EMPTY_TODO')
+end
+
+Given /^the todo list has item "([^\"]*)"$/ do |item|
+  @originalItems << item
+  File.open(@todoFile, "w") { |f| f.write(@originalItems.join("\n").strip) };
+end
+
 
 Given /^a todo list with some done items$/ do
   fixture('TODO_WITH_DONE')
@@ -30,6 +41,7 @@ end
 
 When /^I execute "([^\"]*)"$/ do |command|
   @output = `./bin/#{command} #{@todoFile}`
+  @output_lines = @output.split("\n")
 end
 
 Then /^I should see all the tasks$/ do
@@ -65,7 +77,7 @@ Then /^I should see the generated task marked done$/ do
 end
 
 Then /^the file should not be changed$/ do
-  File.read(@todoFile).should == File.read(@fixtureFile)
+  File.read(@todoFile).split("\n").should == @originalItems
 end
 
 Then /^the file should include the substeps$/ do
@@ -97,6 +109,13 @@ Then /^I should see all the tasks with the generated substeps$/ do
   lines[2].should be_include "Write code to make test pass"
 end
 
+Then /^I want to see "([^\"]*)" on line ([0-9]+)$/ do |out, line|
+  @output_lines[line.to_i].should be_include(out)
+end
+
+Then /^the file should include "([^\"]*)" on line ([0-9]+)$/ do |out, line|
+  File.read(@todoFile).split("\n")[line.to_i].should be_include(out)
+end
 
 
 
